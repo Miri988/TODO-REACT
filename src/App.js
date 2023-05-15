@@ -1,23 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { AddTodoForm } from './conteiners/AddTodoForm/AddTodoForm';
+import { Button } from './components/Button/Button';
+//import { TodoList } from './conteiners/TodoList/TodoList';
+
 
 function App() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [data,setData] = useState([]);
+  
+
+  const handlerSubmitForm = (e) => {
+    e.preventDefault();
+
+    const newTodo = {
+        id: Date.now(),
+        title: title,
+        description: description,
+    };
+    
+    setData([...data, newTodo]);
+  }
+
+  const deleteTodo = (id) => {
+    setData(data.filter(item => item.id !== id));
+    console.log(data)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1> TO DO LIST </h1>
       </header>
+     <AddTodoForm 
+     setTitle = {setTitle} 
+     setDescription = {setDescription} 
+     onSubmit = {handlerSubmitForm}/>
+     <div>
+      {
+        data.map (item => {
+          return (
+            <div key = {item.id}>
+              <span>{item.title}</span>
+              <span>{item.description}</span>
+              <Button>Edit</Button>
+              <Button onClick = {() => deleteTodo(item.id)}>Delete</Button>
+            </div>
+          )
+        })
+      }
+     </div>
+
     </div>
   );
 }
