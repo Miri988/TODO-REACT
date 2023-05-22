@@ -1,35 +1,14 @@
-/* import { useState } from "react"
-
 import { Button } from "../../components/Button/Button";
-import { InputCheckbox } from "../../components/InputCheckbox/InputCheckbox";
-
 import styles from "./TodoItem.module.scss"
 
-
-
-export const TodoItem = (props) => {
-    const [isChecked,setIsChecked] = useState (props.checked);
-    
-    const onChangeHandler = (e) => {
-        setIsChecked(!isChecked);
-    }
-
-    const editTodo = (e) => {
-
-    }
-
-    const deleteTodo = (e) => {
-
-    }
-    
+export const TodoItem = ({item, editTodo, setModalOpen, deleteTodo}) => {    
+  
     return (
     <div className={styles.todoitem}>
-        <InputCheckbox onChange = {onChangeHandler} />
-        <span>{props.children}</span>
-        <span>{props.children}</span>
+        <span>Title: {item.title}</span>
+        <span>Description: {item.description}</span>
         <Button onClick = {editTodo} >Edit</Button>
         <Button onClick = {deleteTodo} >Delete</Button>
     </div>
   )
 }
- */

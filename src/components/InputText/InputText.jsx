@@ -1,21 +1,21 @@
 
 
-export const InputText = (props) => {
+export const InputText = ({htmlFor,children, className, value, placeholder, onChange}) => {
   return (
     <div className="wrapper">
         <label 
-        htmlFor={props.htmlFor}
+        htmlFor={htmlFor}
         className="label">
-        {props.children}
+        {children}
         </label>
     
         <input 
         type = "text"
-        className={props.className}
-        value = {props.value}
+        className={className}
+        value = {value}
         required
-        placeholder={props.placeholder}
-        onChange={props.onChange}/>
+        placeholder={placeholder}
+        onChange={onChange}/>
     </div>
   )
 }

@@ -1,12 +1,12 @@
 import styles from "./Button.module.scss";
 
-export const Button = (props) => {
+export const Button = ({type,onClick,children}) => {
   return (
     <button
     className={styles.btn}
-    type = {props.type}
-    onClick = {props.onClick}
-    >{props.children}
+    type = {type}
+    onClick = {onClick}
+    >{children}
     </button>
   )
 }

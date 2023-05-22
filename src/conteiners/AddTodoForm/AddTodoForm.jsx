@@ -5,23 +5,23 @@ import { InputText } from "../../components/InputText/InputText";
 import styles from "./AddTodoForm.module.scss";
 
 
-export const AddTodoForm = (props) => {
+export const AddTodoForm = ({onSubmit, setTitle, description, setDescription}) => {
     return (
     <form 
     className={styles.form}
-    onSubmit={props.onSubmit}
+    onSubmit={onSubmit}
     >
         <InputText 
         htmlFor="Title" 
         className="inputTitle" 
         placeholder="Enter title" 
-        onChange = {(e) => {props.setTitle (e.target.value)}}> Title: </InputText>
+        onChange = {(e) => {setTitle (e.target.value)}}> Title: </InputText>
 
         <InputText 
         htmlFor="Description" 
         className="inputDescription" 
         placeholder="Enter description" 
-        onChange = {(e) => {props.setDescription (e.target.value)}}> Description: </InputText>
+        onChange = {(e) => {setDescription (e.target.value)}}> Description: </InputText>
 
         <Button type = "submit">Submit</Button>
     </form>
