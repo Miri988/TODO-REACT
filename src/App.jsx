@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { useState } from 'react';
 import { AddTodoForm } from './conteiners/AddTodoForm/AddTodoForm';
 import { ModalForm } from './conteiners/ModalForm/ModalForm';
@@ -10,9 +10,7 @@ function App() {
   const [description, setDescription] = useState("");
   const [data,setData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalInfo, setModalInfo] = useState(null);
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalDescription, setModalDescription] = useState("");
+  const [activeItem, setActiveItem] = useState(null)
     
 
   const handlerSubmitForm = (e) => {
@@ -25,72 +23,70 @@ function App() {
     };
     
     setData([...data, newTodo]);
+
     e.target.reset();
   }
 
   const deleteTodo = (id) => {
+    
     setData(data.filter(item => item.id !== id)); 
   }
 
-  const editTodo = (id, e) => {
+  const editTodo = (id) => {
     setModalOpen(true);
-    setModalInfo({id, title,description});
+    const editTask = data.find(item => item.id === id);
+    setActiveItem(editTask);
   }
 
-  const handlerModalSubmitForm = (e) => {
-    e.preventDefault();
-    const newItem = data.map(item => {
-      if (item.id === modalInfo.id) {
-        return {
-          ...item,
-          title: modalTitle,
-          description: modalDescription,
-        };
-      }
-      return item;
-    })
+  const handlerModalSubmitForm = (id, title, description) => {
+  
+    const newData = data.map(i => {
+        if (i.id === id) {
+          return {
+          ...i,
+          title: title,
+          description: description,
+        }
+        }
+        return i;
+      })
 
-    setModalOpen(false);
-    setModalInfo("");
-
-    setData([...data, newItem]);
+      setData(newData);
+      setModalOpen(false);
+      setActiveItem(null);
     
-    e.target.reset();
-
-    
-
+   
   }
+
 
   
   return (
-    <div className="App">
-      <header>
+    <>
+    <div className="todo vertical flex segments">
+      <div className="segment">
+      <header className='header_center'>
         <h1> TO DO LIST </h1>
       </header>
       <AddTodoForm 
       setTitle = {setTitle} 
       setDescription = {setDescription} 
       onSubmit = {handlerSubmitForm}/>
-      
+      </div>
+      <div className="fluid segment">
       <TodoList
       data = {data} 
       setData = {setData} 
       editTodo = {editTodo} 
       deleteTodo = {deleteTodo}/>
+      </div>
+      </div>
 
       {modalOpen && <ModalForm
-        modalTitle = {modalTitle}
-        modalDescription = {modalDescription}
-        setModalTitle={setModalTitle}
-        setModalDescription={setModalDescription}
-        onClick = {() => editTodo()}
-        modalInfo = {modalInfo}
+        item = {activeItem}
         onSubmit = {handlerModalSubmitForm}
         closeModal ={() => setModalOpen(false)}/>
       }          
-    </div>
-
-    
+   </> 
   );
 }
 

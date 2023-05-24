@@ -5,7 +5,7 @@ import { InputText } from "../../components/InputText/InputText";
 import styles from "./AddTodoForm.module.scss";
 
 
-export const AddTodoForm = ({onSubmit, setTitle, description, setDescription}) => {
+export const AddTodoForm = ({onSubmit,setTitle, setDescription}) => {
     return (
     <form 
     className={styles.form}

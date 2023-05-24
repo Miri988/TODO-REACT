@@ -2,7 +2,7 @@
 
 export const InputText = ({htmlFor,children, className, value, placeholder, onChange}) => {
   return (
-    <div className="wrapper">
+    <div className="field">
         <label 
         htmlFor={htmlFor}
         className="label">
